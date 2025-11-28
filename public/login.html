@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <title>Đăng nhập - FoodRun</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body { background: #f0f2f5; height: 100vh; display: flex; align-items: center; justify-content: center; }
+        .card { width: 100%; max-width: 400px; }
+    </style>
+</head>
+<body>
+    <div class="card shadow p-4">
+        <h2 class="text-center text-primary mb-4">FoodRun</h2>
+        
+        <ul class="nav nav-tabs mb-3" id="myTab">
+            <li class="nav-item"><button class="nav-link active" data-bs-toggle="tab" data-bs-target="#login">Đăng nhập</button></li>
+            <li class="nav-item"><button class="nav-link" data-bs-toggle="tab" data-bs-target="#register">Đăng ký</button></li>
+        </ul>
+
+        <div class="tab-content">
+            <!-- Đăng nhập -->
+            <div class="tab-pane fade show active" id="login">
+                <input type="text" id="loginUser" class="form-control mb-2" placeholder="Tên đăng nhập">
+                <input type="password" id="loginPass" class="form-control mb-3" placeholder="Mật khẩu">
+                <button class="btn btn-primary w-100" onclick="auth('login')">Đăng Nhập</button>
+            </div>
+            <!-- Đăng ký -->
+            <div class="tab-pane fade" id="register">
+                <input type="text" id="regUser" class="form-control mb-2" placeholder="Chọn tên đăng nhập">
+                <input type="password" id="regPass" class="form-control mb-3" placeholder="Chọn mật khẩu">
+                <button class="btn btn-success w-100" onclick="auth('register')">Đăng Ký</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
