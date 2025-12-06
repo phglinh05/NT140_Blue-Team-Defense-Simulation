@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test API</title>
+</head>
+<body>
+    <h1>Test API Products</h1>
+    <button onclick="testProducts()">Tải sản phẩm</button>
+    <pre id="result"></pre>
+
+    <script>
+        async function testProducts() {
+            try {
+                const res = await fetch('/api/products');
+                const data = await res.json();
+                document.getElementById('result').innerText = JSON.stringify(data, null, 2);
+            } catch (err) {
+                document.getElementById('result').innerText = 'Lỗi: ' + err.message;
+            }
+        }
+    </script>
+</body>
+</html>

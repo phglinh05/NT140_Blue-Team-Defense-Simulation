@@ -2,67 +2,127 @@
 <html lang="vi">
 <head>
     <meta charset="UTF-8">
-    <title>FoodRun - Trang chủ</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FoodRun - Đặt món ngon, giao nhanh</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <style>
-        .product-img { height: 150px; object-fit: cover; }
-        .sidebar { height: 100vh; overflow-y: auto; position: sticky; top: 0; background: #fff; border-left: 1px solid #ddd; }
-    </style>
+    <link href="styles.css" rel="stylesheet">
 </head>
 <body>
     <!-- Navbar -->
-    <nav class="navbar navbar-dark bg-danger px-3">
-        <a class="navbar-brand fw-bold" href="#">FoodRun</a>
-        <span class="text-white" id="welcomeMsg">Xin chào!</span>
-        <div>
-            <button class="btn btn-outline-light btn-sm me-2" onclick="showHistory()">Lịch sử</button>
-            <button class="btn btn-warning btn-sm" onclick="logout()">Đăng xuất</button>
+    <nav class="navbar navbar-expand-lg navbar-dark">
+        <div class="container-fluid px-4">
+            <a class="navbar-brand" href="#">🍔 FoodRun</a>
+            <div class="d-flex align-items-center gap-2">
+                <span class="welcome-user" id="welcomeMsg">Xin chào!</span>
+                <button class="btn btn-history" id="btnHistory">📋 Lịch sử</button>
+                <button class="btn btn-logout" id="btnLogout">🚪 Đăng xuất</button>
+            </div>
         </div>
     </nav>
 
-    <div class="container-fluid">
-        <div class="row">
-            <!-- Cột trái: Danh sách món -->
-            <div class="col-md-9 p-4 bg-light">
-                <h4 class="text-primary border-bottom pb-2">🍛 Đồ Ăn</h4>
-                <div id="foodList" class="row g-3 mb-4"></div>
+    <!-- Main Content -->
+    <div class="container-fluid main-content">
+        <div class="row px-4">
+            <!-- Products Section -->
+            <div class="col-lg-8 col-xl-9">
+                <!-- Food Section -->
+                <div class="category-header food">
+                    <span class="category-icon">🍕</span>
+                    <h3>Đồ Ăn Ngon</h3>
+                </div>
+                <div class="row" id="foodList">
+                    <div class="col-12 text-center loading">Đang tải sản phẩm...</div>
+                </div>
 
-                <h4 class="text-warning border-bottom pb-2">🥤 Nước Uống</h4>
-                <div id="drinkList" class="row g-3"></div>
+                <!-- Drink Section -->
+                <div class="category-header drink mt-5">
+                    <span class="category-icon">🥤</span>
+                    <h3>Đồ Uống Thơm Ngon</h3>
+                </div>
+                <div class="row" id="drinkList">
+                    <div class="col-12 text-center loading">Đang tải sản phẩm...</div>
+                </div>
             </div>
 
-            <!-- Cột phải: Giỏ hàng -->
-            <div class="col-md-3 sidebar p-3 shadow-sm">
-                <h4 class="text-center mb-3">Giỏ Hàng</h4>
-                <ul id="cartItems" class="list-group mb-3"></ul>
-                <div class="d-flex justify-content-between fw-bold fs-5 mb-3">
-                    <span>Tổng:</span>
-                    <span id="totalPrice" class="text-danger">0 đ</span>
+            <!-- Cart Sidebar -->
+            <div class="col-lg-4 col-xl-3">
+                <div class="cart-sidebar">
+                    <div class="cart-header">
+                        <h4>🛒 Giỏ Hàng</h4>
+                    </div>
+                    <div id="cartItems">
+                        <div class="cart-empty">Giỏ hàng trống<br>😊</div>
+                    </div>
+                    <div class="cart-total">
+                        <span class="cart-total-label">TỔNG CỘNG:</span>
+                        <span class="cart-total-price" id="totalPrice">0đ</span>
+                    </div>
+                    <button class="btn-checkout" id="btnPlaceOrder"> ĐẶT HÀNG NGAY</button>
                 </div>
-                <button class="btn btn-success w-100 py-2" onclick="placeOrder()">XÁC NHẬN ĐẶT HÀNG</button>
             </div>
         </div>
     </div>
 
-    <!-- Modal Lịch sử -->
-    <div class="modal fade" id="historyModal" tabindex="-1">
-        <div class="modal-dialog modal-lg">
+    <!-- Modal Thêm vào giỏ -->
+    <div class="modal fade" id="quantityModal" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">Lịch sử đơn hàng</h5>
+                    <h5 class="modal-title">Thêm vào giỏ hàng</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                 </div>
-                <div class="modal-body" id="historyContent"></div>
+                <div class="modal-body">
+                    <div class="text-center mb-4">
+                        <h4 id="modalProductName" class="modal-product-name">Sản phẩm</h4>
+                        <p class="fs-3 fw-bold modal-product-price" id="modalProductPrice">0đ</p>
+                    </div>
+                    <div class="mb-3">
+                        <label for="modalQuantityInput" class="form-label fw-bold">Số lượng:</label>
+                        <div class="input-group input-group-lg">
+                            <button class="btn btn-outline-secondary" type="button" id="btnDecrementQty">
+                                <strong>−</strong>
+                            </button>
+                            <input 
+                                type="number" 
+                                class="form-control text-center fw-bold fs-4 modal-quantity-input" 
+                                id="modalQuantityInput" 
+                                value="1" 
+                                min="1" 
+                                max="999">
+                            <button class="btn btn-outline-secondary" type="button" id="btnIncrementQty">
+                                <strong>+</strong>
+                            </button>
+                        </div>
+                        <small class="text-muted">Số lượng từ 1-999</small>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
+                    <button type="button" class="btn btn-checkout modal-btn-add" id="btnConfirmAddToCart">Thêm vào giỏ</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Lịch Sử -->
+    <div class="modal fade" id="historyModal" tabindex="-1">
+        <div class="modal-dialog modal-lg modal-dialog-scrollable">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Lịch sử đặt hàng</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body" id="historyContent">
+                    <div class="text-center loading">Đang tải lịch sử...</div>
+                </div>
             </div>
         </div>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="quantity-helper.js"></script>
     <script src="script.js"></script>
-    <script>
-        // Kiểm tra đăng nhập khi vào trang
-        if (!localStorage.getItem('currentUser')) window.location.href = 'login.html';
-        else loadProducts();
-    </script>
+    <script src="event-handlers.js"></script>
+    <script src="auth-guard.js"></script>
 </body>
 </html>

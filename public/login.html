@@ -2,39 +2,66 @@
 <html lang="vi">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Đăng nhập - FoodRun</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <style>
-        body { background: #f0f2f5; height: 100vh; display: flex; align-items: center; justify-content: center; }
-        .card { width: 100%; max-width: 400px; }
-    </style>
+    <link href="login-styles.css" rel="stylesheet">
 </head>
 <body>
-    <div class="card shadow p-4">
-        <h2 class="text-center text-primary mb-4">FoodRun</h2>
+    <div class="login-container">
+        <!-- Left Panel -->
+        <div class="login-left">
+            <div class="emoji">🍔</div>
+            <h2>FoodRun</h2>
+            <p>Đặt món ngon, giao nhanh chóng<br>Trải nghiệm ẩm thực tuyệt vời!<br>🍕🍜🍰🥤</p>
+        </div>
         
-        <ul class="nav nav-tabs mb-3" id="myTab">
-            <li class="nav-item"><button class="nav-link active" data-bs-toggle="tab" data-bs-target="#login">Đăng nhập</button></li>
-            <li class="nav-item"><button class="nav-link" data-bs-toggle="tab" data-bs-target="#register">Đăng ký</button></li>
-        </ul>
+        <!-- Right Panel -->
+        <div class="login-right">
+            <ul class="nav nav-tabs justify-content-center" id="myTab">
+                <li class="nav-item flex-fill">
+                    <button class="nav-link active w-100" data-bs-toggle="tab" data-bs-target="#login">Đăng nhập</button>
+                </li>
+                <li class="nav-item flex-fill">
+                    <button class="nav-link w-100" data-bs-toggle="tab" data-bs-target="#register">Đăng ký</button>
+                </li>
+            </ul>
 
-        <div class="tab-content">
-            <!-- Đăng nhập -->
-            <div class="tab-pane fade show active" id="login">
-                <input type="text" id="loginUser" class="form-control mb-2" placeholder="Tên đăng nhập">
-                <input type="password" id="loginPass" class="form-control mb-3" placeholder="Mật khẩu">
-                <button class="btn btn-primary w-100" onclick="auth('login')">Đăng Nhập</button>
-            </div>
-            <!-- Đăng ký -->
-            <div class="tab-pane fade" id="register">
-                <input type="text" id="regUser" class="form-control mb-2" placeholder="Chọn tên đăng nhập">
-                <input type="password" id="regPass" class="form-control mb-3" placeholder="Chọn mật khẩu">
-                <button class="btn btn-success w-100" onclick="auth('register')">Đăng Ký</button>
+            <div class="tab-content">
+                <!-- Đăng nhập -->
+                <div class="tab-pane fade show active" id="login">
+                    <div class="form-group">
+                        <label>Tên đăng nhập</label>
+                        <input type="text" id="loginUser" class="form-control" placeholder="Nhập tên đăng nhập">
+                    </div>
+                    <div class="form-group">
+                        <label>Mật khẩu</label>
+                        <input type="password" id="loginPass" class="form-control" placeholder="Nhập mật khẩu">
+                    </div>
+                    <div id="authMsgLogin" class="password-hint auth-msg-hidden"></div>
+                    <button class="btn btn-auth btn-login" id="btnLogin">ĐĂNG NHẬP</button>
+                </div>
+                
+                <!-- Đăng ký -->
+                <div class="tab-pane fade" id="register">
+                    <div class="form-group">
+                        <label>Tên đăng nhập</label>
+                        <input type="text" id="regUser" class="form-control" placeholder="Chọn tên đăng nhập (3-30 ký tự)">
+                    </div>
+                    <div class="form-group">
+                        <label>Mật khẩu</label>
+                        <input type="password" id="regPass" class="form-control" placeholder="Chọn mật khẩu mạnh">
+                        <div class="password-hint">Tối thiểu 8 ký tự: 1 chữ HOA, 1 chữ thường, 1 số, 1 ký tự đặc biệt (@$!%*?&#)</div>
+                    </div>
+                    <div id="authMsgRegister" class="password-hint auth-msg-hidden"></div>
+                    <button class="btn btn-auth btn-register" id="btnRegister">ĐĂNG KÝ NGAY</button>
+                </div>
             </div>
         </div>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="script.js"></script>
+    <script src="login-handlers.js"></script>
 </body>
 </html>
