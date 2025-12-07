@@ -8,6 +8,7 @@ const helmet = require('helmet');
 const rateLimit = require('express-rate-limit');
 const validator = require('validator');
 const app = express();
+app.set('trust proxy', 1);
 require('dotenv').config(); 
 
 // --- BẢO MẬT: JWT SECRET ---
