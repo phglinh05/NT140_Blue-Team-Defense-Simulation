@@ -1,20 +1,16 @@
-# 🛡️ Blue Team Defense Simulation - Enterprise Network Security
+# Blue Team Defense Simulation - Enterprise Network Security
 > **Đồ án môn học: An toàn mạng (NT140)** | **Khoa Mạng Máy tính & Truyền thông - UIT**
 
-![Network Scope](https://img.shields.io/badge/Scope-Enterprise_Network-blue)
-![Stack](https://img.shields.io/badge/Stack-Wazuh%20%7C%20pfSense%20%7C%20Suricata%20%7C%20ModSecurity-orange)
-![Security](https://img.shields.io/badge/Security-Defense_in_Depth-success)
-
-## 📖 Giới thiệu (Overview)
+## Giới thiệu (Overview)
 Dự án này tập trung thiết kế và triển khai hệ thống bảo mật toàn diện cho một **Mạng doanh nghiệp quy mô nhỏ** với đầy đủ các thành phần hạ tầng thực tế.
 
 Hệ thống được xây dựng dựa trên kiến trúc phân vùng mạng (Network Segmentation) chặt chẽ, bao gồm nhiều vùng chức năng như DMZ, File Server, mạng các Phòng ban và vùng Quản trị (Management). Mục tiêu là áp dụng chiến lược **Defense in Depth (Phòng thủ chiều sâu)** để bảo vệ tài nguyên doanh nghiệp trước các kịch bản tấn công đa dạng.
 
-🔗 **[Tải báo cáo chi tiết (PDF)](NT140_BlueTeam.pdf)**
+**[Tải báo cáo chi tiết (PDF)](NT140_BlueTeam.pdf)**
 
 ---
 
-## 🏗️ Sơ đồ & Kiến trúc Mạng (Network Topology)
+## Sơ đồ & Kiến trúc Mạng (Network Topology)
 
 Hệ thống mô phỏng một hạ tầng mạng doanh nghiệp hoàn chỉnh, được phân tách thành các vùng an toàn (Zones) thông qua Firewall:
 
@@ -39,7 +35,7 @@ Hệ thống mô phỏng một hạ tầng mạng doanh nghiệp hoàn chỉnh, 
 
 ---
 
-## 🛠️ Giải pháp Kỹ thuật đã triển khai
+## Giải pháp Kỹ thuật đã triển khai
 
 Hệ thống áp dụng bảo mật đa lớp từ lớp mạng đến lớp ứng dụng và giám sát trung tâm:
 
@@ -73,19 +69,19 @@ Hệ thống áp dụng bảo mật đa lớp từ lớp mạng đến lớp ứ
 
 ---
 
-## ⚔️ Kết quả Kiểm thử & Mô phỏng (Simulation Results)
+## Kết quả Kiểm thử & Mô phỏng (Simulation Results)
 
 Dựa trên quá trình thực chiến, Đội Xanh đã ghi nhận và xử lý các kịch bản tấn công từ Đội Đỏ với một số kết quả như sau:
 
 | Đối tượng tấn công | Kịch bản mô phỏng | Cơ chế phòng thủ kích hoạt | Kết quả |
 | :--- | :--- | :--- | :--- |
-| **Web Server** | **Tấn công DoS/DDoS** (HTTP Flood vào `/api/order`) | **Cloudflare & Nginx** kích hoạt Rate Limiting, tự động chặn IP khi vượt ngưỡng request cho phép. | ✅ **Đã chặn** |
-| **Web Server** | **Tấn công Web** (XSS, SQL Injection) | **ModSecurity (WAF)** phát hiện payload tấn công (ví dụ: `<script>`, `' OR 1=1`) và trả về lỗi 403 Forbidden. | ✅ **Đã chặn** |
-| **Web Server** | **Rà quét đường dẫn** (Gobuster: `.env`, `.git`) | **ModSecurity** và **Custom Rules** chặn truy cập vào các đường dẫn nhạy cảm hoặc không tồn tại. | ✅ **Đã chặn (403/404)** |
+| **Web Server** | **Tấn công DoS/DDoS** (HTTP Flood vào `/api/order`) | **Cloudflare & Nginx** kích hoạt Rate Limiting, tự động chặn IP khi vượt ngưỡng request cho phép. | **Đã chặn** |
+| **Web Server** | **Tấn công Web** (XSS, SQL Injection) | **ModSecurity (WAF)** phát hiện payload tấn công (ví dụ: `<script>`, `' OR 1=1`) và trả về lỗi 403 Forbidden. | **Đã chặn** |
+| **Web Server** | **Rà quét đường dẫn** (Gobuster: `.env`, `.git`) | **ModSecurity** và **Custom Rules** chặn truy cập vào các đường dẫn nhạy cảm hoặc không tồn tại. | **Đã chặn** |
 
 ---
 
-## 👥 Thành viên thực hiện
+## Thành viên thực hiện
 **Nhóm 12 - NT140.Q12.ANTT**
 * **Trần Thị Phương Linh (23520851)**
 * **Nguyễn Đức Hùng (23520565)**
